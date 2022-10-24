@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
   },
   {
@@ -12,8 +12,16 @@ const routes = [
     name: "UseContext",
   },
   {
+    path: "/use-memo",
+    name: "UseMemo",
+  },
+  {
     path: "/redux",
     name: "Redux",
+  },
+  {
+    path: "/tmp",
+    name: "Tmp",
   },
 ];
 

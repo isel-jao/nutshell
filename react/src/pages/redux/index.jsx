@@ -36,7 +36,7 @@ const ReduxPage = () => {
       >
         save to store
       </Button>
-      <div className="grid-md-2 g-3  gird-2">
+      <div className="grid-lg-2 g-3  gird-2">
         <div>
           <div className="text-2xl text-slate-600 my-3">LOCAL</div>
           <div className=" card">

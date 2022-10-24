@@ -1,14 +1,15 @@
 import React from "react";
 import { TextField } from "@mui/material";
+
+import Provider, { GetContext } from "../../components/provider";
+
 const defaulUser = {
   firstName: "John",
   lastName: "Doe",
 };
 
-export const UserContext = React.createContext(null);
-
 const FirstName = () => {
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser] = GetContext();
   return (
     <TextField
       label="First Name"
@@ -20,7 +21,7 @@ const FirstName = () => {
 };
 
 const LastName = () => {
-  const [user, setUser] = React.useContext(UserContext);
+  const [user, setUser] = GetContext();
   return (
     <TextField
       label="Last Name"
@@ -35,7 +36,7 @@ const Profile = () => {
   return (
     <div>
       <h1>Profile</h1>
-      <div className="grid-md-2 grid-1 gap-2 px-2">
+      <div className="grid-md-2 grid-1 gap-4 p-4">
         <FirstName />
         <LastName />
       </div>
@@ -45,8 +46,9 @@ const Profile = () => {
 
 const UseContextPage = () => {
   const [user, setUser] = React.useState(defaulUser);
+
   return (
-    <UserContext.Provider value={[user, setUser]}>
+    <Provider value={[user, setUser]}>
       <Profile />
       <div className="flex">
         <div className="p-4 bg-slate-700 text-slate-200 w-10 text-center">
@@ -56,7 +58,7 @@ const UseContextPage = () => {
           {user.lastName}
         </div>
       </div>
-    </UserContext.Provider>
+    </Provider>
   );
 };
 

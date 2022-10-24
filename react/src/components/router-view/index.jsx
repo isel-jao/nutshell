@@ -4,7 +4,9 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../../pages/home";
 import UseState from "../../pages/use-state";
 import UseContext from "../../pages/use-context";
+import UseMemoPage from "../../pages/use-memo";
 import ReduxPage from "../../pages/redux";
+import TmpPage from "../../pages/tmp";
 
 const NotFound = () => {
   return (
@@ -17,11 +19,13 @@ const NotFound = () => {
 const RouterView = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<HomePage />} />
       <Route path="/use-state" element={<UseState />} />
       <Route path="/use-state" element={<UseState />} />
       <Route path="/use-context" element={<UseContext />} />
+      <Route path="/use-memo" element={<UseMemoPage />} />
       <Route path="/redux" element={<ReduxPage />} />
+      <Route path="/tmp" element={<TmpPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
