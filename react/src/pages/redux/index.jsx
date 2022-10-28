@@ -1,16 +1,25 @@
-import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TextField, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 const ReduxPage = () => {
   const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [user, setUser] = React.useState(userState);
+  const [user, setUser] = useState(userState);
   const handleChange = (e, key) => {
     setUser({
       ...user,
       [key]: e.target.value,
     });
   };
+
+  const getInputType = (key, value) => {
+    if (key === "password") return "password";
+    if (key === "email") return "email";
+    if (typeof value === "boolean") return "checkbox";
+    if (typeof value === "number") return "number";
+    return "text";
+  };
+
   return (
     <div className="p-6">
       <div className="grid-lg-4 grid-md-2 grid-1 g-4 mb-4">
@@ -21,6 +30,7 @@ const ReduxPage = () => {
               key={key}
               label={key}
               value={user[key]}
+              type={getInputType(key, user[key])}
               onChange={(e) => handleChange(e, key)}
             />
           ))}

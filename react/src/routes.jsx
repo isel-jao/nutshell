@@ -12,6 +12,10 @@ const routes = [
     name: "UseContext",
   },
   {
+    path: "/custom-hooks",
+    name: "CustomHooks",
+  },
+  {
     path: "/use-memo",
     name: "UseMemo",
   },

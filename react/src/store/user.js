@@ -3,10 +3,10 @@ const defaultState = {
   lastName: "",
   age: 0,
   email: "",
+  password: "",
   phone: "",
   avatar: "",
   role: "",
-  _id: "",
 };
 
 export default function user(state = defaultState, action) {

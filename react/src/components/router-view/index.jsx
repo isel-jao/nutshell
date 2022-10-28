@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "../../pages/home";
 import UseState from "../../pages/use-state";
 import UseContext from "../../pages/use-context";
+import CustomHooksPage from "../../pages/custom-hooks";
 import UseMemoPage from "../../pages/use-memo";
 import ReduxPage from "../../pages/redux";
 import TmpPage from "../../pages/tmp";
@@ -23,6 +24,7 @@ const RouterView = () => {
       <Route path="/use-state" element={<UseState />} />
       <Route path="/use-state" element={<UseState />} />
       <Route path="/use-context" element={<UseContext />} />
+      <Route path="/custom-hooks" element={<CustomHooksPage />} />
       <Route path="/use-memo" element={<UseMemoPage />} />
       <Route path="/redux" element={<ReduxPage />} />
       <Route path="/tmp" element={<TmpPage />} />
