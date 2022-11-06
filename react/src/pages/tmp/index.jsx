@@ -1,16 +1,22 @@
-import React from "react";
-import Provider, { GetContext } from "../../components/provider";
-import { Switch } from "@mui/material";
-
+import React, { useState } from "react";
+import { Button } from "@mui/material";
+import Modal from "../../components/modal";
 const TmpPage = () => {
+  const [open, setOpen] = useState(false);
   return (
-    <div
-      style={{
-        backgroundColor: thme.mode === "light" ? "white" : "black",
-      }}
-      className="h-50 debug flex flex-col justify-center align-center"
-    >
-      <DarkModeToggle />
+    <div className="p-6">
+      <Button
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        open
+      </Button>
+      <Modal open={open} className="rounded">
+        hellow
+        <Button onClick={() => setOpen(false)}>close</Button>
+      </Modal>
     </div>
   );
 };
