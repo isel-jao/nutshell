@@ -4,59 +4,54 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import RouterView from "./components/router-view";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import Layout, { Nav, SideNav } from "./layouts/vertical/layout1";
 import routes from "./routes";
+import reactLogo from "./assets/react.svg";
 
-const RouterLink = ({ route }) => {
-  const location = useLocation();
-  const isActive = location.pathname === route.path;
-  return (
-    <Link
-      to={route.path}
+import styled from "styled-components";
+
+const StyledLogo = styled.div`
+  min-height: 4em;
+  width: 16em;
+  display: flex;
+  .shape {
+    width: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .name {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const Logo = () => (
+  <StyledLogo>
+    <div className="shape">
+      <img src={reactLogo} alt="logo" />
+    </div>
+    <div
+      className="name"
       style={{
-        transition: "background-color 0.2s ease",
+        color: "#19d2df",
+        fontSize: "1.5em",
+        fontWeight: "bolder",
+        letterSpacing: "1px",
       }}
-      className={`flex h-2 w-9/10 rounded px-4  justify-content align-center ${
-        isActive
-          ? "bg-slate-500 text-slate-100"
-          : "hover:bg-slate-200 text-slate-900"
-      }`}
     >
-      {route.name}
-    </Link>
-  );
-};
-
-const SideNav = () => {
-  return (
-    <div className="flex flex-col w-full h-full justify-content align-center py-4">
-      {routes.map((route, index) => {
-        return <RouterLink key={index} route={route} />;
-      })}
+      React
     </div>
-  );
-};
-const Layout = (props) => {
-  return (
-    <div className="flex">
-      <div className="side-nav w-16 bg-slate-100 shadow-sm h-screen">
-        <SideNav />
-      </div>
-      <div className="main w-full h-full">
-        <div className="nav  bg-slate-100 w-full h-5 flex align-center px-4 shadow-sm">
-          nav
-        </div>
-        <div className="router-view h-full">{props.children}</div>
-      </div>
-    </div>
-  );
-};
+  </StyledLogo>
+);
 
 function App() {
   return (
     <div className="App bg-slate-200 h-screen">
-      <Layout>
+      <Layout routes={routes}>
+        <Nav />
+        <SideNav logo={<Logo />} routes={routes} />
         <RouterView />
       </Layout>
     </div>

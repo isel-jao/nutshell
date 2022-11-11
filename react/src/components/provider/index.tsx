@@ -2,7 +2,7 @@ import React from "react";
 
 const Context = React.createContext(null);
 
-export const GetContext = () => {
+export const GetContext: () => any = () => {
   return React.useContext(Context);
 };
 

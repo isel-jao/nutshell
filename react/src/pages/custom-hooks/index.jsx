@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, TextField } from "@mui/material";
-import useLocalStorage from "./custom-hooks/indes";
+import useLocalStorage from "../../hooks/use-local-storage";
 
 const hookClasses =
   "my-3 flex  flex-col gap-4 pb-3 solid-bottom border-slate-300";
