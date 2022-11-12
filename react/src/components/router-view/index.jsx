@@ -20,6 +20,7 @@ const NotFound = () => {
 const RouterView = () => {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/use-state" element={<UseState />} />
       <Route path="/use-state" element={<UseState />} />

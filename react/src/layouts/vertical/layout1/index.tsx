@@ -5,6 +5,7 @@ import Nav from "./nav";
 import SideNav from "./side-nav";
 import Settings from "./settings";
 import Provider from "../../../components/provider";
+
 interface Route {
   path: string;
   name: string;
@@ -27,8 +28,6 @@ interface Theme {
     background: string;
     color: string;
   };
-  navTheme: "lighten" | "darken" | "transparent" | "blur" | "custom";
-  edges: "border" | "shadow" | "none";
   palette: {
     mode: "dark" | "light";
     primary: {
@@ -55,14 +54,12 @@ interface Theme {
 const defaultState: Theme = {
   dark: {
     color: "#fff",
-    background: "#0e1c1c",
+    background: "#0f141f",
   },
   light: {
-    color: "#0d1a1a",
-    background: "#d5e7e6",
+    color: "#0f181f",
+    background: "#e1e8ea",
   },
-  navTheme: "lighten",
-  edges: "border",
   palette: {
     mode: "light",
     primary: {
@@ -93,6 +90,8 @@ interface Action {
 
 interface ContextState {
   theme: [Theme, any];
+  nav: [NavState, any];
+  sideNav: [SideNavState, any];
   open: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   settingsOpen: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
@@ -143,19 +142,137 @@ function themeReducer(state = defaultState, action: Action): Theme {
         },
       };
     default:
+      throw new Error("Unexpected action");
+  }
+}
+
+interface NavState {
+  isFixed: boolean;
+  theme: "lighten" | "darken" | "transparent" | "blur" | "custom";
+  edges: "border" | "shadow" | "none";
+  dark: {
+    background: string;
+    color: string;
+  };
+  light: {
+    background: string;
+    color: string;
+  };
+}
+
+const navDefaultState: NavState = {
+  isFixed: false,
+  theme: "blur",
+  edges: "shadow",
+  dark: {
+    color: "#fff",
+    background: "#0f141f",
+  },
+  light: {
+    color: "#0f181f",
+    background: "#e1e8ea",
+  },
+};
+
+function navReducer(state = navDefaultState, action: Action): NavState {
+  switch (action.type) {
+    case "SET":
+      return { ...state, ...action.payload };
+    case "TOGGLE_IS_FIXED":
+      return { ...state, isFixed: !state.isFixed };
+    case "UPDATE_LIGHT":
+      return {
+        ...state,
+        light: {
+          ...state.light,
+          ...action.payload,
+        },
+      };
+    case "UPDATE_DARK":
+      return {
+        ...state,
+        dark: {
+          ...state.dark,
+          ...action.payload,
+        },
+      };
+    default:
       return state;
   }
 }
 
+interface SideNavState {
+  theme: "lighten" | "darken" | "transparent" | "blur" | "custom";
+  edges: "border" | "shadow" | "none";
+  activeClass: string;
+  dark: {
+    background: string;
+    color: string;
+  };
+  light: {
+    background: string;
+    color: string;
+  };
+}
+
+const sideNavDefaultState: SideNavState = {
+  theme: "blur",
+  edges: "shadow",
+  activeClass: "contained rounded",
+  dark: {
+    color: "#fff",
+    background: "#0f141f",
+  },
+  light: {
+    color: "#0f181f",
+    background: "#e1e8ea",
+  },
+};
+
+const sideNavReducer = (
+  state = sideNavDefaultState,
+  action: Action
+): SideNavState => {
+  switch (action.type) {
+    case "SET":
+      return { ...state, ...action.payload };
+    case "UPDATE_LIGHT":
+      return {
+        ...state,
+        light: {
+          ...state.light,
+          ...action.payload,
+        },
+      };
+    case "UPDATE_DARK":
+      return {
+        ...state,
+        dark: {
+          ...state.dark,
+          ...action.payload,
+        },
+      };
+    default:
+      return state;
+  }
+};
+
 const Layout = (props: LayoutProps) => {
-  const [theme, dispatch] = React.useReducer(themeReducer, defaultState);
+  const [theme, dispatchTheme] = React.useReducer(themeReducer, defaultState);
+  const [nav, dispatchNav] = React.useReducer(navReducer, navDefaultState);
+  const [sideNav, dispatchSideNav] = React.useReducer(
+    sideNavReducer,
+    sideNavDefaultState
+  );
   const [open, setOpen] = React.useState(false);
   const [settingsOpen, setSettingsOpen] = React.useState(true);
   return (
     <ThemeProvider theme={theme}>
       <Provider
         value={{
-          theme: [theme, dispatch],
+          theme: [theme, dispatchTheme],
+          nav: [nav, dispatchNav],
+          sideNav: [sideNav, dispatchSideNav],
           open: [open, setOpen],
           settingsOpen: [settingsOpen, setSettingsOpen],
         }}
@@ -169,5 +286,14 @@ const Layout = (props: LayoutProps) => {
   );
 };
 
-export { Nav, SideNav, Theme, Route, LayoutProps, ContextState };
+export {
+  Nav,
+  SideNav,
+  Theme,
+  Route,
+  LayoutProps,
+  ContextState,
+  NavState,
+  SideNavState,
+};
 export default Layout;

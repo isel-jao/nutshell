@@ -2,7 +2,7 @@ import HomeIcon from "./assets/icons/home";
 import DevicesIcon from "./assets/icons/device";
 const routes = [
   {
-    path: "/",
+    path: "/home",
     name: "Home",
     icon: <HomeIcon />,
   },
