@@ -4,7 +4,7 @@ import { lighten, darken, rgba } from "polished";
 const unit = "4em";
 const LayoutStyled = styled.div`
   box-sizing: border-box;
-  * {
+  & > * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -46,9 +46,6 @@ const LayoutStyled = styled.div`
   transition-property: padding-left;
   overflow-y: auto;
   overflow-x: hidden;
-  .router-view {
-    min-height: 100vh;
-  }
   &.open {
     padding-left: 16em;
   }
@@ -110,10 +107,10 @@ const LayoutStyled = styled.div`
     padding: 1em 0.5em;
     min-width: 10em;
     border: none;
-    &:focus,
+    /* &:focus,
     &:active {
       outline: ${(props) => props.theme.palette.primary.main} auto 1px;
-    }
+    } */
   }
 
   input[type="checkbox"] {
@@ -202,6 +199,31 @@ const LayoutStyled = styled.div`
       height: 0.25em;
       background-color: ${(props) => props.theme.palette.primary.main};
     }
+  }
+  .indicator-on-bottom {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 0.25em;
+      background-color: ${(props) => props.theme.palette.primary.main};
+    }
+  }
+  /* scrollbar */
+  &::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    width: 0.75em;
+    border-radius: 0.25em;
+  }
+  &::-webkit-scrollbar-thumb,
+  *:hover::-webkit-scrollbar-thumb {
+    border-radius: 0.25em;
+    background: ${(props) =>
+      darken(0.1, props.theme.palette.primary.main)} !important;
+    cursor: pointer;
   }
 `;
 

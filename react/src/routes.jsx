@@ -1,5 +1,11 @@
 import HomeIcon from "./assets/icons/home";
 import DevicesIcon from "./assets/icons/device";
+import PublishedWithChangesIcon from "@mui/icons-material/PublishedWithChanges";
+import {
+  SdStorage as SdStorageIcon,
+  Construction as ConstructionIcon,
+  Biotech as BiotechIcon,
+} from "@mui/icons-material";
 const routes = [
   {
     path: "/home",
@@ -9,7 +15,7 @@ const routes = [
   {
     path: "/use-state",
     name: "UseState",
-    icon: <DevicesIcon />,
+    icon: <PublishedWithChangesIcon />,
   },
   {
     path: "/use-context",
@@ -19,12 +25,12 @@ const routes = [
   {
     path: "/custom-hooks",
     name: "CustomHooks",
-    icon: <DevicesIcon />,
+    icon: <ConstructionIcon />,
   },
   {
     path: "/use-memo",
     name: "UseMemo",
-    icon: <DevicesIcon />,
+    icon: <SdStorageIcon />,
   },
   {
     path: "/redux",
@@ -34,7 +40,7 @@ const routes = [
   {
     path: "/tmp",
     name: "Tmp",
-    icon: <DevicesIcon />,
+    icon: <BiotechIcon />,
   },
 ];
 

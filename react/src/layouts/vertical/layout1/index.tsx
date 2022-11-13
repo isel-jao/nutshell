@@ -264,8 +264,8 @@ const Layout = (props: LayoutProps) => {
     sideNavReducer,
     sideNavDefaultState
   );
-  const [open, setOpen] = React.useState(false);
-  const [settingsOpen, setSettingsOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true);
+  const [settingsOpen, setSettingsOpen] = React.useState(false);
   return (
     <ThemeProvider theme={theme}>
       <Provider
@@ -279,7 +279,7 @@ const Layout = (props: LayoutProps) => {
       >
         <LayoutStyled className={`layout ${open && "open"}`}>
           <Settings />
-          <div className="router-view">{props.children}</div>
+          <div className="router-view ">{props.children}</div>
         </LayoutStyled>
       </Provider>
     </ThemeProvider>

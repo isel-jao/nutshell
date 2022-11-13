@@ -48,17 +48,19 @@ const UseContextPage = () => {
   const [user, setUser] = React.useState(defaulUser);
 
   return (
-    <Provider value={[user, setUser]}>
-      <Profile />
-      <div className="flex">
-        <div className="p-4 bg-slate-700 text-slate-200 w-10 text-center">
-          {user.firstName}
+    <div className="  ">
+      <Provider value={[user, setUser]}>
+        <Profile />
+        <div className="flex mt-4">
+          <div className="p-4 bg-slate-700 text-slate-200 w-10 text-center">
+            {user.firstName}
+          </div>
+          <div className="border-slate-400 solid-left p-4 bg-slate-700 text-slate-200 w-10 text-center">
+            {user.lastName}
+          </div>
         </div>
-        <div className="border-slate-400 solid-left p-4 bg-slate-700 text-slate-200 w-10 text-center">
-          {user.lastName}
-        </div>
-      </div>
-    </Provider>
+      </Provider>
+    </div>
   );
 };
 

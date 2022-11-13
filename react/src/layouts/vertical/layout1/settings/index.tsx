@@ -76,6 +76,50 @@ const StyledDiv = styled.div`
   }
 `;
 
+type inputInterface = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> & {
+  onChange: (value: string) => void;
+};
+
+interface LazyInputProps extends inputInterface {
+  type: "text" | "number" | "range" | "color" | "textearea";
+  value: string;
+  timeout?: number;
+  onChange: (value: string) => void;
+}
+
+function LazyInput({
+  type,
+  value,
+  timeout = 500,
+  onChange,
+  ...props
+}: LazyInputProps) {
+  const [state, setState] = React.useState(value);
+  const [timer, setTimer] = React.useState<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    setTimer(
+      setTimeout(() => {
+        onChange(state);
+      }, timeout)
+    );
+  }, [state]);
+  return (
+    <input
+      {...props}
+      type={type}
+      value={state}
+      onChange={(e) => setState(e.target.value)}
+    />
+  );
+}
+
 const Settings = () => {
   const state = GetContext() as ContextState;
   const [theme, dispatchTheme] = state.theme;
@@ -109,16 +153,16 @@ const Settings = () => {
             <div>dark theme</div>
             <div className="background">
               <label htmlFor="dark-background">background</label>
-              <input
-                type="color"
-                name="dark-background"
+              <LazyInput
                 id="dark-background"
+                name="dark-background"
+                type="color"
                 value={theme.dark.background}
-                onChange={(e) =>
+                onChange={(newVal: string) =>
                   dispatchTheme({
                     type: "SET",
                     payload: {
-                      dark: { ...theme.dark, background: e.target.value },
+                      dark: { ...theme.dark, background: newVal },
                     },
                   })
                 }
@@ -126,15 +170,15 @@ const Settings = () => {
             </div>
             <div className="color">
               <label htmlFor="dark-text">text</label>
-              <input
+              <LazyInput
                 type="color"
                 name="dark-text"
                 id="dark-text"
                 value={theme.dark.color}
-                onChange={(e) =>
+                onChange={(newVal: string) =>
                   dispatchTheme({
                     type: "SET",
-                    payload: { dark: { ...theme.dark, color: e.target.value } },
+                    payload: { dark: { ...theme.dark, color: newVal } },
                   })
                 }
               />
@@ -144,16 +188,16 @@ const Settings = () => {
             <div>light theme</div>
             <div className="background">
               <label htmlFor="light-background">background</label>
-              <input
+              <LazyInput
                 type="color"
                 name="light-background"
                 id="light-background"
                 value={theme.light.background}
-                onChange={(e) =>
+                onChange={(newVal: string) =>
                   dispatchTheme({
                     type: "SET",
                     payload: {
-                      light: { ...theme.light, background: e.target.value },
+                      light: { ...theme.light, background: newVal },
                     },
                   })
                 }
@@ -161,16 +205,16 @@ const Settings = () => {
             </div>
             <div className="color">
               <label htmlFor="light-text">text</label>
-              <input
+              <LazyInput
                 type="color"
                 name="light-text"
                 id="light-text"
                 value={theme.light.color}
-                onChange={(e) =>
+                onChange={(newVal: string) =>
                   dispatchTheme({
                     type: "SET",
                     payload: {
-                      light: { ...theme.light, color: e.target.value },
+                      light: { ...theme.light, color: newVal },
                     },
                   })
                 }
@@ -225,16 +269,16 @@ const Settings = () => {
               <div className="dark">dark</div>
               <div className="background">
                 <label htmlFor="nav-dark-background">background</label>
-                <input
+                <LazyInput
                   type="color"
                   name="nav-dark-background"
                   id="nav-dark-background"
                   value={nav.dark.background}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchNav({
                       type: "SET",
                       payload: {
-                        dark: { ...nav.dark, background: e.target.value },
+                        dark: { ...nav.dark, background: newVal },
                       },
                     })
                   }
@@ -242,34 +286,34 @@ const Settings = () => {
               </div>
               <div className="color">
                 <label htmlFor="nav-dark-text">text</label>
-                <input
+                <LazyInput
                   type="color"
                   name="nav-dark-text"
                   id="nav-dark-text"
                   value={nav.dark.color}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchNav({
                       type: "SET",
-                      payload: { dark: { ...nav.dark, color: e.target.value } },
+                      payload: { dark: { ...nav.dark, color: newVal } },
                     })
                   }
                 />
               </div>
             </div>
             <div className="theme">
-              <div className="light">light</div>
+              <div className="light">ligbackground￼ ht</div>
               <div className="background">
                 <label htmlFor="nav-light-background">background</label>
-                <input
+                <LazyInput
                   type="color"
                   name="nav-light-background"
                   id="nav-light-background"
                   value={nav.light.background}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchNav({
                       type: "SET",
                       payload: {
-                        light: { ...nav.light, background: e.target.value },
+                        light: { ...nav.light, background: newVal },
                       },
                     })
                   }
@@ -277,16 +321,16 @@ const Settings = () => {
               </div>
               <div className="color">
                 <label htmlFor="nav-light-text">text</label>
-                <input
+                <LazyInput
                   type="color"
                   name="nav-light-text"
                   id="nav-light-text"
                   value={nav.light.color}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchNav({
                       type: "SET",
                       payload: {
-                        light: { ...nav.light, color: e.target.value },
+                        light: { ...nav.light, color: newVal },
                       },
                     })
                   }
@@ -323,16 +367,16 @@ const Settings = () => {
               <div className="dark">dark</div>
               <div className="background">
                 <label htmlFor="side-nav-dark-background">background</label>
-                <input
+                <LazyInput
                   type="color"
                   name="side-nav-dark-background"
                   id="side-nav-dark-background"
                   value={sideNav.dark.background}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchSideNav({
                       type: "SET",
                       payload: {
-                        dark: { ...sideNav.dark, background: e.target.value },
+                        dark: { ...sideNav.dark, background: newVal },
                       },
                     })
                   }
@@ -340,16 +384,16 @@ const Settings = () => {
               </div>
               <div className="color">
                 <label htmlFor="side-nav-dark-text">text</label>
-                <input
+                <LazyInput
                   type="color"
                   name="side-nav-dark-text"
                   id="side-nav-dark-text"
                   value={sideNav.dark.color}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchSideNav({
                       type: "SET",
                       payload: {
-                        dark: { ...sideNav.dark, color: e.target.value },
+                        dark: { ...sideNav.dark, color: newVal },
                       },
                     })
                   }
@@ -360,16 +404,16 @@ const Settings = () => {
               <div className="light">light</div>
               <div className="background">
                 <label htmlFor="side-nav-light-background">background</label>
-                <input
+                <LazyInput
                   type="color"
                   name="side-nav-light-background"
                   id="side-nav-light-background"
                   value={sideNav.light.background}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchSideNav({
                       type: "SET",
                       payload: {
-                        light: { ...sideNav.light, background: e.target.value },
+                        light: { ...sideNav.light, background: newVal },
                       },
                     })
                   }
@@ -377,16 +421,16 @@ const Settings = () => {
               </div>
               <div className="color">
                 <label htmlFor="side-nav-light-text">text</label>
-                <input
+                <LazyInput
                   type="color"
                   name="side-nav-light-text"
                   id="side-nav-light-text"
                   value={sideNav.light.color}
-                  onChange={(e) =>
+                  onChange={(newVal: string) =>
                     dispatchSideNav({
                       type: "SET",
                       payload: {
-                        light: { ...sideNav.light, color: e.target.value },
+                        light: { ...sideNav.light, color: newVal },
                       },
                     })
                   }
