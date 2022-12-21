@@ -1,0 +1,20 @@
+GET http://localhost:3000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphbmUiLCJwYXNzd29yZCI6IjQ1NiIsImlhdCI6MTY3MTU2Nzc3N30.UaTuURvDfq9IrHIguwq4Zy0oiDx7ePQXp6AgEsnjero
+
+###
+POST http://localhost:4000/login
+Content-Type: application/json
+
+{
+	"username": "Jane",
+	"password": "456"
+}
+
+
+###
+POST http://localhost:4000/token
+Content-Type: application/json
+
+{
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphbmUiLCJwYXNzd29yZCI6IjQ1NiIsImlhdCI6MTY3MTYzMzQ5Mn0.wRm6yYhApZHuhowgEIqugPROi6TYWWVbPlKo1qQOI78"
+}
