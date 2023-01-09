@@ -1,0 +1,10 @@
+{
+  "name": "amqp-test",
+  "version": "1.0.0",
+  "description": "Test AMQP",
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "amqplib": "^0.10.3"
+  }
+}
