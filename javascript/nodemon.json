@@ -1,0 +1,5 @@
+{
+  "watch": "src",
+  "ext": "js",
+  "exec": "clear && echo start && node src/main.js"
+}
